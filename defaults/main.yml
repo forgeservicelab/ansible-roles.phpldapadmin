@@ -1,0 +1,18 @@
+---
+phpldapadmin_ldap_uri: 'ldaps://127.0.0.1'
+phpldapadmin_ldap_port: 636
+phpldapadmin_password_template: |
+  <attribute id="userPassword">
+        <display>Password</display>
+        <!-- <helper>
+                <display>Encryption</display>
+                <id>enc</id>
+                <value>=php.PasswordEncryptionTypes()</value>
+        </helper> -->
+        <icon>lock.png</icon>
+        <order>3</order>
+        <page>1</page>
+        <post>=php.PasswordEncrypt(%enc%;%userPassword%)</post>
+        <spacer>1</spacer>
+        <verify>1</verify>
+  </attribute>

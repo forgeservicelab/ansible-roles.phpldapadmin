@@ -1,0 +1,45 @@
+---
+
+- yum:
+    name: "{{ item }}"
+  with_items:
+    - mod_ssl
+    - php-ldap
+    - phpldapadmin
+
+- lineinfile:
+    dest: /etc/httpd/conf/httpd.conf
+    regexp: ^Listen 80
+    state: absent
+  notify:
+    - restart httpd
+
+- lineinfile:
+    dest: /etc/httpd/conf.d/phpldapadmin.conf
+    regexp: '^  Order|^  Deny|^  Allow'
+    state: absent
+  notify:
+    - restart httpd
+
+- shell: date +%s | sha256sum | base64 | head -c 32
+  register: random_string
+  ignore_errors: True
+
+- template:
+    src: config.php
+    dest: /etc/phpldapadmin/config.php
+    backup: yes
+    group: apache
+
+- shell: grep -q userPassword /usr/share/phpldapadmin/templates/creation/inetOrgPerson.xml
+  register: userPassword_found
+  ignore_errors: True
+
+- lineinfile:
+    dest: /usr/share/phpldapadmin/templates/creation/inetOrgPerson.xml
+    backup: yes
+    insertbefore: '<attribute id="jpegPhoto">'
+    line: "{{ phpldapadmin_password_template }}"
+    group: apache
+  when: userPassword_found|failed
+
