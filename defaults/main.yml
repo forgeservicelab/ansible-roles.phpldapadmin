@@ -1,4 +1,5 @@
 ---
+phpldapadmin_port: 8443
 phpldapadmin_ldap_uri: 'ldaps://127.0.0.1'
 phpldapadmin_ldap_port: 636
 phpldapadmin_password_template: |

@@ -14,10 +14,15 @@
   notify:
     - restart httpd
 
-- lineinfile:
+- template:
+    src: phpldapadmin.conf
     dest: /etc/httpd/conf.d/phpldapadmin.conf
-    regexp: '^  Order|^  Deny|^  Allow'
-    state: absent
+  notify:
+    - restart httpd
+
+- copy:
+    src: ssl.conf
+    dest: /etc/httpd/conf.d/ssl.conf
   notify:
     - restart httpd
 
