@@ -329,11 +329,12 @@ $servers->setValue('login','auth_type','session');
    the directory for users (ie, if your LDAP server does not allow anonymous
    binds. */
 // $servers->setValue('login','bind_id','');
+$servers->setValue('login','bind_id','{{ phpldapadmin_binder_dn }}');
 
 /* Your LDAP password. If you specified an empty bind_id above, this MUST also
    be blank. */
 // $servers->setValue('login','bind_pass','');
-#  $servers->setValue('login','bind_pass','secret');
+$servers->setValue('login','bind_pass','{{ phpldapadmin_binder_password }}');
 
 /* Use TLS (Transport Layer Security) to connect to the LDAP server. */
 
