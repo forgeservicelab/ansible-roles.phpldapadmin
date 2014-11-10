@@ -23,6 +23,7 @@
 - copy:
     src: ssl.conf
     dest: /etc/httpd/conf.d/ssl.conf
+  when: ansible_distribution == 'CentOS' and ansible_distribution_major_version == '6'
   notify:
     - restart httpd
 
