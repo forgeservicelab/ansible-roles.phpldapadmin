@@ -398,7 +398,7 @@ $servers->setValue('login','attr','cn');
 
 /* Base DNs to used for logins. If this value is not set, then the LDAP server
    Base DNs are used. */
-$servers->setValue('login','base',array('ou=people,{{ phpldapadmin_dn }}'));
+$servers->setValue('login','base',array('{{ phpldapadmin_accounts_subtree }},{{ phpldapadmin_dn }}'));
 
 /* If 'login,attr' is used above such that phpLDAPadmin will search for your DN
    at login, you may restrict the search to a specific objectClasses. EG, set this
