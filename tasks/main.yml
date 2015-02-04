@@ -9,7 +9,7 @@
 
 - lineinfile:
     dest: /etc/httpd/conf/httpd.conf
-    regexp: ^Listen 80
+    regexp: ^Listen 0.0.0.0:8443
     state: absent
   notify:
     - restart httpd
@@ -56,4 +56,3 @@
     line: "{{ phpldapadmin_password_template }}"
     group: apache
   when: userPassword_found|failed
-
