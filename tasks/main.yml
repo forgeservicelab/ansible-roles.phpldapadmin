@@ -9,7 +9,7 @@
 
 - lineinfile:
     dest: /etc/httpd/conf/httpd.conf
-    regexp: ^Listen 0.0.0.0:8443
+    regexp: ^Listen 80
     state: absent
   notify:
     - restart httpd
@@ -18,7 +18,7 @@
     backup: yes
     dest: "{{ '/etc/httpd/conf/httpd.conf' if ansible_os_family == 'RedHat' else '/etc/apache2/ports.conf' }}"
     insertafter: EOF
-    line: "Listen {{ item }}"
+    line: "Listen 0.0.0.0:{{ item }}"
   with_items:
     - "{{ phpldapadmin_port }}"
 
