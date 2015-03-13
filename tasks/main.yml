@@ -18,7 +18,7 @@
     backup: yes
     dest: "{{ '/etc/httpd/conf/httpd.conf' if ansible_os_family == 'RedHat' else '/etc/apache2/ports.conf' }}"
     insertafter: EOF
-    line: "Listen {{ item }}"
+    line: "Listen 0.0.0.0:{{ item }}"
   with_items:
     - "{{ phpldapadmin_port }}"
 
@@ -56,4 +56,3 @@
     line: "{{ phpldapadmin_password_template }}"
     group: apache
   when: userPassword_found|failed
-
